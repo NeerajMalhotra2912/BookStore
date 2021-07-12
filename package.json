@@ -1,0 +1,47 @@
+{
+  "name": "bookstoreapp",
+  "version": "1.0.0",
+  "description": "Book Store Api's",
+  "main": "server.js",
+  "scripts": {
+    "test": "mocha",
+    "lint": "eslint ./",
+    "start": "nodemon server.js",
+    "debug": "nodemon --inspect server.js",
+    "coverage": "nyc --reporter=text npm run test"
+  },
+  "nyc": {
+    "include": "test",
+    "exclude": "app"
+  },
+  "author": "Neeraj_Malhotra",
+  "license": "ISC",
+  "dependencies": {
+    "@hapi/joi": "^17.1.1",
+    "bcrypt": "^5.0.1",
+    "bluebird": "^3.7.2",
+    "chai": "^4.3.4",
+    "chai-http": "^4.3.0",
+    "dotenv": "^9.0.2",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "express-joi-validation": "^5.0.0",
+    "express-session": "^1.17.2",
+    "jsonwebtoken": "^8.5.1",
+    "mocha": "^8.4.0",
+    "mongoose": "^5.12.7",
+    "nodemailer": "^6.6.0",
+    "nyc": "^15.1.0",
+    "passport": "^0.4.1",
+    "passport-google-oauth20": "^2.0.0",
+    "redis": "^3.1.2",
+    "swagger-ui-express": "^4.1.6",
+    "winston": "^3.3.3"
+  },
+  "devDependencies": {
+    "eslint": "^7.29.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.23.4",
+    "nodemon": "^2.0.7"
+  }
+}
