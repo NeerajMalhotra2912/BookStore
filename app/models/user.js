@@ -12,9 +12,7 @@
 const mongoose = require('mongoose');
 /**
  * 
- * @method  userSchema method  
- * @description Creating the user schema for user details. 
- * @returns save the encrypted password and other details.
+ * @description Creating the user schema for user. 
  */
 const userSchema = mongoose.Schema({
     firstName: {
@@ -60,7 +58,7 @@ class UserRegistrationModel {
             lastName: userData.lastName,
             email: userData.email,
             password: userData.password,
-
+            role: userData.role
         });
         user.save(callback);
     };
