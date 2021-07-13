@@ -10,12 +10,15 @@
  * @version         : 1.0.0
  *
  **************************************************************************/
-const user = require('../controllers/user');
+const userControlller = require('../controllers/user');
+const helper = require('../../helper/validationSchema');
 /**
  *
  * @param {*} app
  * @description creating the routes for api's
  */
 module.exports = (app) => {
-    app.post('/register', user.createUser);
+    app.post('/user', userControlller.createUser);
+
+    app.post('/admin', userControlller.createUser);
 };
