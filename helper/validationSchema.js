@@ -11,9 +11,10 @@
  *
  **************************************************************************/
 
+require('dotenv').config();
 const joi = require('@hapi/joi');
 const jwt = require('jsonwebtoken');
-require('dotenv').config();
+
 /**
  * @description : creating schema for registartion
  */
@@ -22,9 +23,17 @@ class Helper {
     firstName: joi.string().min(3).pattern(/^[A-Z][a-zA-Z]{2}/).required(),
     lastName: joi.string().min(3).pattern(/^[A-Z][a-zA-Z]{2}/).required(),
     email: joi.string().email().required(),
-    password: joi.string().pattern(/^[A-Z][a-zA-Z0-9]{5,}[$&^!@#()|,;:<>?/%-+][0-9]{3,}/).required()
+    password: joi.string().pattern(/^[A-Z][a-zA-Z0-9]{5,}[$&^!@#()|,;:<>?/%-+][0-9]{3,}/).required(),
+    role: joi.string().required()
   });
 
+  setRole = (role) => {
+    return (req, res, next) => {
+      req.role = role;
+      console.log("role validation : ", role);
+      next();
+    }
+  }
 }
 
 module.exports = new Helper();
