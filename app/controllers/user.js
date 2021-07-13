@@ -10,7 +10,7 @@
  * 
 **************************************************************************/
 
-const { registationSchema } = require('../../helper/validationSchema.js');
+const helper = require('../../helper/validationSchema.js');
 const user = require('../services/user.js');
 
 class UserRegistration {
@@ -22,43 +22,39 @@ class UserRegistration {
      */
     createUser = (req, res) => {
         try {
-            const userDetails = {
+            const userData = {
                 firstName: req.body.firstName,
                 lastName: req.body.lastName,
                 email: req.body.email,
-                password: req.body.password
+                password: req.body.password,
+                // role: req.body.role
             };
-            if (!req.body.firstName || !req.body.lastName || !req.body.email || !req.body.password) {
-                return res.status(400).send({
-                    message: "Fields can't be empty, please fill all details."
-                })
-            }
-            const checkValidation = registationSchema.validate(userDetails);
-            if (checkValidation.error) {
-                res.send({ message: "Please enter correct details for ragistration." });
+            const validationResult = helper.registationSchema.validate(userData);
+            if (validationResult.error) {
+                res.status(400).send({
+                    success: false,
+                    message: 'Pass the proper format of all the fields',
+                    data: validationResult,
+                });
                 return;
             }
-            user.createUser(userDetails, (error, result) => {
+            user.createUser(userData, (error, data) => {
                 if (error) {
-                    res.status(400).send({
+                    return res.status(400).send({
                         success: false,
-                        message: "Email already exist.",
-                        error
+                        message: error,
                     });
                 }
-                else {
-                    res.status(200).send({
-                        success: true,
-                        message: "User Ragistered Successfully",
-                        // data : result
-                    });
-                }
+                return res.status(200).send({
+                    success: true,
+                    message: 'registered successfully',
+                });
             });
-        } catch (error) {
+        } catch (err) {
             res.status(500).send({
                 success: false,
-                message: "Internal error from server"
-            })
+                message: 'Internal server error',
+            });
         }
     }
 };
