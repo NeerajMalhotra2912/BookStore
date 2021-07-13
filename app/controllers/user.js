@@ -10,15 +10,15 @@
  * 
 **************************************************************************/
 
-const helper = require('../../helper/validationSchema.js');
-const user = require('../services/user.js');
+const userService = require('../services/user.js');
+const helper = require('../../helper/validationSchema');
 
 class UserRegistration {
     /**
      * 
-     * @method createUser method for registration  
-     * @description Creating the user for registration and saving its details 
-     * @returns registeration status.
+     * @param {*} req 
+     * @param {*} res 
+     * @description : creating user registration api controller which will send data to services.
      */
     createUser = (req, res) => {
         try {
@@ -27,9 +27,11 @@ class UserRegistration {
                 lastName: req.body.lastName,
                 email: req.body.email,
                 password: req.body.password,
-                // role: req.body.role
+                role: req.role
             };
+            // console.log("Data : ", userData);
             const validationResult = helper.registationSchema.validate(userData);
+            console.log("validate : ", validationResult);
             if (validationResult.error) {
                 res.status(400).send({
                     success: false,
@@ -38,7 +40,7 @@ class UserRegistration {
                 });
                 return;
             }
-            user.createUser(userData, (error, data) => {
+            userService.createUser(userData, (error, data) => {
                 if (error) {
                     return res.status(400).send({
                         success: false,
@@ -47,15 +49,16 @@ class UserRegistration {
                 }
                 return res.status(200).send({
                     success: true,
-                    message: 'registered successfully',
+                    message: 'Registered successfully',
                 });
             });
         } catch (err) {
             res.status(500).send({
                 success: false,
-                message: 'Internal server error',
+                message: 'Internal error from the server',
             });
         }
     }
 };
+
 module.exports = new UserRegistration();
