@@ -18,7 +18,7 @@ const helper = require('../../helper/validationSchema');
  * @description creating the routes for api's
  */
 module.exports = (app) => {
-    app.post('/user', userControlller.createUser);
+    app.post('/user', helper.setRole('user'), userControlller.createUser);
 
-    app.post('/admin', userControlller.createUser);
+    app.post('/admin', helper.setRole('admin'), userControlller.createUser);
 };
