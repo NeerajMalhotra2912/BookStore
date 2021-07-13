@@ -1,0 +1,20 @@
+{
+    "user":
+    {
+        "correct_Data_For_Ragistration":
+        {
+            "firstName" : "Neeraj",
+            "lastName"  : "Malhotra",
+            "email"     : "neeraj@gmail.com",
+            "password"  : "Naman@12345"
+        },
+
+        "in_correct_Data_For_Ragistration":
+        {
+            "firstName": "neeraj",
+            "lastName": "malhotra",
+            "email": "neeraj@gmail.com",
+            "password": "Neeraj@1234"
+        }
+    }
+}
