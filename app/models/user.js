@@ -32,23 +32,18 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true
     },
-}, {
-    versionKey: false
+    role: {
+        type: String,
+        required: false
+    }
 },
     {
+        versionKey: false
+    },
+    {
         timestamps: true
-    });
-userSchema.pre('save', async function (next) {
-    try {
-        const salt = await bcrypt.genSalt(10)
-        const hashedPassword = await bcrypt.hash(this.password, salt)
-        this.password = hashedPassword
-        next()
-    } catch (error) {
-        next(error)
     }
-
-});
+);
 
 const userModel = mongoose.model('User', userSchema);
 
@@ -60,11 +55,16 @@ class UserRegistrationModel {
      * @description : createUser will take the request from services and create the user according to schema
      */
     createUser = (userData, callback) => {
-        const user = new userModel(userData);
-        user.save((err, userResult) => {
-            (err) ? callback(err, null) : callback(null, userResult);
+        const user = new userModel({
+            firstName: userData.firstName,
+            lastName: userData.lastName,
+            email: userData.email,
+            password: userData.password,
+
         });
+        user.save(callback);
     };
+
 }
 
-module.exports = new UserRegistrationModel;
+module.exports = new UserRegistrationModel();
