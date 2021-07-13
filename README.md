@@ -3,7 +3,7 @@
 ## Discription
 This is the Book Store App here we have the api for Book's crud.
 
-# To run this project you need to clone this repository and then you can install npm package.
+## To run this project you need to clone this repository and then you can install npm package.
 
 ### To clone this repository : 
 
