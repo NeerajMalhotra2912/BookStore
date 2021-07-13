@@ -1,7 +1,7 @@
 {
     "user":
     {
-        "correct_Data_For_Ragistration":
+        "correct_Data_For_Registration":
         {
             "firstName" : "Neeraj",
             "lastName"  : "Malhotra",
@@ -9,7 +9,7 @@
             "password"  : "Naman@12345"
         },
 
-        "in_correct_Data_For_Ragistration":
+        "in_correct_Data_For_Registration":
         {
             "firstName": "neeraj",
             "lastName": "malhotra",
