@@ -1,0 +1,53 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Book Store App",
+        "description": "This app is build for creating api's for bookstore"
+    },
+    "host": "localhost:3000",
+    "tags": [
+        {
+            "name": "BookStore",
+            "description": "API for user registration"
+        }
+    ],
+    "schemes": [
+        "http"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/user": {
+            "post": {
+                "tags": [
+                    "BookStore"
+                ],
+                "summary": "User registartion",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "This is the book store api"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful"
+                    },
+                    "400": {
+                        "description": "Failure : user registartion is failed"
+                    }
+                }
+            }
+        }
+            
+    }
+}
