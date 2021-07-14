@@ -27,13 +27,23 @@ class Helper {
     role: joi.string().required()
   });
 
+  loginSchema = joi.object({
+    email: joi.string().required(),
+    password: joi.string().required()
+  });
+
   setRole = (role) => {
     return (req, res, next) => {
       req.role = role;
-      console.log("role validation : ", role);
       next();
     }
   }
+
+  createToken = (result) => {
+    const token = jwt.sign({ email: result.email, id: result._id, role: result.role }, process.env.JWT, { expiresIn: '1 day' });
+    // client.setex('token', 7200, token);
+    return token;
+  };
 }
 
 module.exports = new Helper();
