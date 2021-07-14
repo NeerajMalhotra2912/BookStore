@@ -21,4 +21,8 @@ module.exports = (app) => {
     app.post('/user', helper.setRole('user'), userControlller.createUser);
 
     app.post('/admin', helper.setRole('admin'), userControlller.createUser);
+
+    app.post('/userLogin', userControlller.login);
+
+    app.post('/adminLogin', userControlller.login);
 };
