@@ -11,9 +11,10 @@
  **************************************************************************/
 
 const userRegistrationModel = require('../models/user.js');
+const bcrypt = require('bcrypt');
 /**
  * 
- * @description Creating service file for all api of register, login, forget password and reset password
+ * @description Creating service file for user registration and it will send details to models.
  */
 class UserData {
     /**
@@ -24,6 +25,26 @@ class UserData {
      */
     createUser = (userData, callback) => {
         userRegistrationModel.createUser(userData, callback);
+    }
+
+    login = (data, callback) => {
+        const { password } = data;
+        userRegistrationModel.login(data, (error, result) => {
+            if (result) {
+                bcrypt.compare(password, result.password, (err, resultt) => {
+                    if (err) {
+                        callback(err, null);
+                    }
+                    if (resultt) {
+                        callback(null, result);
+                    } else {
+                        callback('Please check your password');
+                    }
+                });
+            } else {
+                callback('Please check user details');
+            }
+        });
     }
 }
 
