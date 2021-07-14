@@ -29,14 +29,12 @@ class UserRegistration {
                 password: req.body.password,
                 role: req.role
             };
-            // console.log("Data : ", userData);
             const validationResult = helper.registationSchema.validate(userData);
-            console.log("validate : ", validationResult);
             if (validationResult.error) {
                 res.status(400).send({
                     success: false,
-                    message: 'Pass the proper format of all the fields',
-                    data: validationResult,
+                    message: 'Please follow the rules for registration',
+                    // data: validationResult,
                 });
                 return;
             }
@@ -44,16 +42,55 @@ class UserRegistration {
                 if (error) {
                     return res.status(400).send({
                         success: false,
-                        message: error,
+                        message: "Registration failed",
+                        error
                     });
                 }
                 return res.status(200).send({
                     success: true,
                     message: 'Registered successfully',
+                    // data
                 });
             });
         } catch (err) {
             res.status(500).send({
+                success: false,
+                message: 'Internal error from the server',
+            });
+        }
+    }
+
+    login = (req, res) => {
+        try {
+            const loginData = {
+                email: req.body.email,
+                password: req.body.password,
+            };
+            const validateRequest = helper.loginSchema.validate(loginData);
+            if (validateRequest.error) {
+                res.status(400).send({
+                    success: false,
+                    error: 'Please follow the rules for login',
+                    data: validateRequest,
+                });
+                return;
+            }
+            userService.login(loginData, (error, result) => {
+                if (error) {
+                    return res.status(400).send({
+                        success: false,
+                        message: 'Login failed',
+                        error,
+                    });
+                }
+                return res.status(200).send({
+                    success: true,
+                    message: 'Logged in Successfully',
+                    token: helper.createToken(result),
+                });
+            });
+        } catch (err) {
+            return res.status(500).send({
                 success: false,
                 message: 'Internal error from the server',
             });
