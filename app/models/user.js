@@ -10,6 +10,7 @@
  * 
  **************************************************************************/
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 /**
  * 
  * @description Creating the user schema for user. 
@@ -42,7 +43,17 @@ const userSchema = mongoose.Schema({
         timestamps: true
     }
 );
+userSchema.pre('save', async function (next) {
+    try {
+        const salt = await bcrypt.genSalt(10)
+        const hashedPassword = await bcrypt.hash(this.password, salt)
+        this.password = hashedPassword
+        next()
+    } catch (error) {
+        next(error)
+    }
 
+});
 const userModel = mongoose.model('User', userSchema);
 
 class UserRegistrationModel {
@@ -52,7 +63,8 @@ class UserRegistrationModel {
      * @param {*} callback 
      * @description : createUser will take the request from services and create the user according to schema
      */
-    createUser = (userData, callback) => {
+
+    createUser = async (userData, callback) => {
         const user = new userModel({
             firstName: userData.firstName,
             lastName: userData.lastName,
@@ -60,8 +72,21 @@ class UserRegistrationModel {
             password: userData.password,
             role: userData.role
         });
-        user.save(callback);
-    };
+        const check = await userModel.findOne({ email: userData.email });
+        if (check) {
+            callback('Please check your email for duplicasy');
+        } else {
+            const registrationData = await user.save();
+            callback(null, registrationData);
+        }
+    }
+
+    login = (data, callback) => {
+        userModel.findOne({ email: data.email })
+            .then((user) => {
+                callback(null, user);
+            });
+    }
 
 }
 
