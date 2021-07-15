@@ -39,8 +39,21 @@ class Helper {
     }
   }
 
+  checkRole = (role) => (req, res, next) => {
+    req.role = role;
+    if (role.includes(req.role)) {
+      next();
+    } else {
+      return res.status(401).send({
+        success: false,
+        message: 'In-Correct role'
+      });
+    }
+  };
+
   createToken = (result) => {
     const token = jwt.sign({ email: result.email, id: result._id, role: result.role }, process.env.JWT, { expiresIn: '1 day' });
+    console.log("result : ", result);
     // client.setex('token', 7200, token);
     return token;
   };
