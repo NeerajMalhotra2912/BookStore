@@ -22,7 +22,7 @@ module.exports = (app) => {
 
     app.post('/admin', helper.setRole('admin'), userControlller.createUser);
 
-    app.post('/userLogin', userControlller.login);
+    app.post('/userLogin', helper.checkRole('user'), userControlller.login);
 
-    app.post('/adminLogin', userControlller.login);
+    app.post('/adminLogin', helper.checkRole('admin'), userControlller.login);
 };
