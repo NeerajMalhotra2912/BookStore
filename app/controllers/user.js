@@ -59,7 +59,12 @@ class UserRegistration {
             });
         }
     }
-
+    /**
+     * 
+     * @param {*} req 
+     * @param {*} res 
+     * @description : created login api for user and admin login.
+     */
     login = (req, res) => {
         try {
             const loginData = {
