@@ -26,7 +26,12 @@ class UserData {
     createUser = (userData, callback) => {
         userRegistrationModel.createUser(userData, callback);
     }
-
+    /**
+     * 
+     * @param {*} data 
+     * @param {*} callback 
+     * @description : creating services for login api this will take request from controller and pass it to models.
+     */
     login = (data, callback) => {
         const { password } = data;
         userRegistrationModel.login(data, (error, result) => {
