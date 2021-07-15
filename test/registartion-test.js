@@ -3,10 +3,10 @@
 /*************************************************************************
  * Execution        : 1. default node       cmd> npm run test
  *
- * Purpose          : to write test cases for register,login,forget and reset password.
+ * Purpose          : to write test cases for book store api
  *
  *
- * @file            : registration.js
+ * @file            : registration-test.js
  * @author          : Neeraj Malhotra
  * @version         : 1.0.0
  *
