@@ -10,8 +10,9 @@
  * 
  **************************************************************************/
 
-const userRegistrationModel = require('../models/user.js');
 const bcrypt = require('bcrypt');
+const userRegistrationModel = require('../models/user.js');
+const helper = require('../../helper/validationSchema.js');
 /**
  * 
  * @description Creating service file for user registration and it will send details to models.
@@ -50,6 +51,26 @@ class UserData {
                 callback('Please check user details');
             }
         });
+    }
+
+    forgetPassword = (data, callback) => {
+        userRegistrationModel.forgetPassword(data, (error, result) => {
+            console.log("result from services ", result);
+            if (result) {
+                const details = {
+                    email: result.email,
+                    _id: result._id,
+                    role: result.role
+                };
+                error ? callback(error, null) : callback(null, helper.mail(details));
+            } else {
+                callback('Please check your email id again');
+            }
+        });
+    }
+
+    resetPassword = (data, callback) => {
+        userRegistrationModel.resetPassword(data, callback);
     }
 }
 
