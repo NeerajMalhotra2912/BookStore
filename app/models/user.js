@@ -88,6 +88,19 @@ class UserRegistrationModel {
             });
     }
 
+    forgetPassword = (data, callback) => {
+        userModel.findOne({ email: data.email })
+            .then((dataOne) => {
+                callback(null, dataOne);
+            });
+    }
+
+    resetPassword = async (data, callback) => {
+        const salt = await bcrypt.genSalt(10);
+        const encrypt = await bcrypt.hash(data.password, salt);
+        userModel.findOneAndUpdate({ email: data.email }, { password: encrypt }, callback(null, data));
+    }
+
 }
 
 module.exports = new UserRegistrationModel();
