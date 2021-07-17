@@ -25,4 +25,8 @@ module.exports = (app) => {
     app.post('/userLogin', helper.checkRole('user'), userControlller.login);
 
     app.post('/adminLogin', helper.checkRole('admin'), userControlller.login);
+
+    app.post('/forgetPassword', userControlller.forgetPassword);
+
+    app.post('/resetPassword', userControlller.resetPassword);
 };
