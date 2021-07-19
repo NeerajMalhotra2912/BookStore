@@ -11,6 +11,7 @@
  *
  **************************************************************************/
 const userControlller = require('../controllers/user');
+const booksController = require('../controllers/book');
 const helper = require('../../helper/validationSchema');
 /**
  *
@@ -29,4 +30,6 @@ module.exports = (app) => {
     app.post('/forgetPassword', userControlller.forgetPassword);
 
     app.post('/resetPassword', userControlller.resetPassword);
+
+    app.post('/book', booksController.addBook);
 };
