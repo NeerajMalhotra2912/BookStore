@@ -34,6 +34,29 @@ class Helper {
     password: joi.string().required()
   });
 
+  bookValidationSchema = joi.object({
+    author: joi.string()
+      .min(3)
+      .required()
+      .pattern(new RegExp('^[A-Za-z ]{3,}$')),
+
+    title: joi.string()
+      .min(3)
+      .required(),
+
+    image: joi.string()
+      .required(),
+
+    quantity: joi.number()
+      .required(),
+
+    price: joi.number()
+      .required(),
+
+    description: joi.string()
+      .required()
+  });
+
   setRole = (role) => {
     return (req, res, next) => {
       req.role = role;
