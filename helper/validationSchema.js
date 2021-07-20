@@ -24,6 +24,9 @@ const logger = require('../logger/logger');
  * @description : creating schema for registartion
  */
 class Helper {
+  /**
+   * @description : user registration schema to register user and admin.
+   */
   registationSchema = joi.object({
     firstName: joi.string().min(3).pattern(/^[A-Z][a-zA-Z]{2}/).required(),
     lastName: joi.string().min(3).pattern(/^[A-Z][a-zA-Z]{2}/).required(),
@@ -32,11 +35,17 @@ class Helper {
     role: joi.string().required()
   });
 
+  /**
+   * @description : login schema to perform the login activity
+   */
   loginSchema = joi.object({
     email: joi.string().required(),
     password: joi.string().required()
   });
 
+  /**
+   * @description : bookValidationSchema to validate the books details.
+   */
   bookValidationSchema = joi.object({
     author: joi.string().required(),
     title: joi.string().required(),
@@ -46,6 +55,9 @@ class Helper {
     description: joi.string().required()
   });
 
+  /**
+   * @description : updatedBookSchema to update the already added book.
+   */
   updatedBookSchema = joi.object({
     author: joi.string().required(),
     title: joi.string().required(),
@@ -56,6 +68,11 @@ class Helper {
     bookId: joi.string().required(),
   });
 
+  /**
+   * 
+   * @param {*} role 
+   * @description : to set the role for registration
+   */
   setRole = (role) => {
     return (req, res, next) => {
       req.role = role;
@@ -63,6 +80,11 @@ class Helper {
     }
   }
 
+  /**
+   * 
+   * @param {*} role 
+   * @description : to check the role at the time of login.
+   */
   checkRole = (role) => (req, res, next) => {
     req.role = role;
     if (role.includes(req.role)) {
@@ -75,20 +97,32 @@ class Helper {
     }
   };
 
+  /**
+   * 
+   * @param {*} result 
+   * @description : createToken will create the token when user or admin do the login.
+   */
   createToken = (result) => {
     const token = jwt.sign({ email: result.email, id: result._id, role: result.role }, process.env.JWT, { expiresIn: '1 day' });
     client.setex('token', 7200, token);
     return token;
   };
 
+  /**
+   * 
+   * @param {*} req 
+   * @param {*} res 
+   * @param {*} next 
+   * @description : verifyRole is the middleware for verifying the role.
+   */
   verifyRole = (req, res, next) => {
     try {
-      const tokenVerification = jwt.verify(req.headers.token, process.env.JWT);
+      const decode = jwt.verify(req.headers.token, process.env.JWT);
       client.get('role', (err, result) => {
         if (err) throw err;
-        if (tokenVerification.role === 'admin' && result === 'admin') {
-          req.userData = tokenVerification;
-          const userId = tokenVerification.id;
+        if (decode.role === 'admin' && result === 'admin') {
+          req.userData = decode;
+          const userId = decode.id;
           req.userId = userId;
         }
         else {
@@ -131,6 +165,11 @@ class Helper {
     }
   };
 
+  /**
+   * 
+   * @param {*} data 
+   * @description : nodemailer will send the mail for forget password api.
+   */
   mail = (data) => {
     const transporter = nodemailer.createTransport({
       service: 'gmail',
