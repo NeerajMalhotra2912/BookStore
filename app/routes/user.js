@@ -17,7 +17,7 @@ const redis = require('../../helper/redis');
 /**
  *
  * @param {*} app
- * @description creating the routes for api's
+ * @description creating the routes for Book store api's
  */
 module.exports = (app) => {
     app.post('/user', helper.setRole('user'), userControlller.createUser);
@@ -37,4 +37,6 @@ module.exports = (app) => {
     app.put('/book/:bookId', booksController.updateBook);
 
     app.get('/book', redis.redisMiddleWare, booksController.getAllBooks);
+
+    app.delete('/book/:bookId', booksController.deleteBook);
 };
