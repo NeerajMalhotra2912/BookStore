@@ -18,6 +18,12 @@ const jwt = require('jsonwebtoken');
 
 class BookController {
 
+    /**
+     * 
+     * @param {*} req 
+     * @param {*} res 
+     * @description : created controller to addBook into database
+     */
     addBook = (req, res) => {
         try {
             const bookDetails = {
@@ -60,6 +66,12 @@ class BookController {
         }
     }
 
+    /**
+     * 
+     * @param {*} req 
+     * @param {*} res 
+     * @description : updateBook api will be used to update the books details 
+     */
     updateBook = (req, res) => {
         try {
             const bookDetails = {
@@ -100,6 +112,12 @@ class BookController {
         }
     }
 
+    /**
+     * 
+     * @param {*} req 
+     * @param {*} res 
+     * description : created getall Books to retrieve all the books stored in database.
+     */
     getAllBooks = (req, res) => {
         try {
             const result = bookService.getAllBooks()
@@ -122,6 +140,35 @@ class BookController {
             });
         }
     }
+
+    /**
+     * 
+     * @param {*} req 
+     * @param {*} res 
+     * @description : created deleteBook api to delete any book from books database.
+     */
+    deleteBook = (req, res) => {
+        try {
+            const result = bookService.deleteBook(req.params.bookId)
+            result.then(() => {
+                return res.status(200).send({
+                    success: true,
+                    message: 'Your Book deleted Successfully',
+                });
+            }).catch(() => {
+                return res.status(400).send({
+                    success: false,
+                    message: 'Failed to delete book',
+                });
+            })
+        } catch (err) {
+            res.status(500).send({
+                success: false,
+                message: 'Internal error from the server',
+            });
+        }
+    }
+
 }
 
 module.exports = new BookController();
