@@ -16,7 +16,10 @@ const joi = require('@hapi/joi');
 const jwt = require('jsonwebtoken');
 const ejs = require('ejs');
 const nodemailer = require('nodemailer');
-
+const redis = require('redis');
+const { cli } = require('winston/lib/winston/config');
+const client = redis.createClient();
+const logger = require('../logger/logger');
 /**
  * @description : creating schema for registartion
  */
@@ -35,26 +38,22 @@ class Helper {
   });
 
   bookValidationSchema = joi.object({
-    author: joi.string()
-      .min(3)
-      .required()
-      .pattern(new RegExp('^[A-Za-z ]{3,}$')),
+    author: joi.string().required(),
+    title: joi.string().required(),
+    image: joi.string().required(),
+    quantity: joi.number().required(),
+    price: joi.number().required(),
+    description: joi.string().required()
+  });
 
-    title: joi.string()
-      .min(3)
-      .required(),
-
-    image: joi.string()
-      .required(),
-
-    quantity: joi.number()
-      .required(),
-
-    price: joi.number()
-      .required(),
-
-    description: joi.string()
-      .required()
+  updatedBookSchema = joi.object({
+    author: joi.string().required(),
+    title: joi.string().required(),
+    image: joi.string().required(),
+    quantity: joi.number().required(),
+    price: joi.number().required(),
+    description: joi.string().required(),
+    bookId: joi.string().required(),
   });
 
   setRole = (role) => {
@@ -78,8 +77,58 @@ class Helper {
 
   createToken = (result) => {
     const token = jwt.sign({ email: result.email, id: result._id, role: result.role }, process.env.JWT, { expiresIn: '1 day' });
-    // client.setex('token', 7200, token);
+    client.setex('token', 7200, token);
     return token;
+  };
+
+  verifyRole = (req, res, next) => {
+    try {
+      const tokenVerification = jwt.verify(req.headers.token, process.env.JWT);
+      client.get('role', (err, result) => {
+        if (err) throw err;
+        if (tokenVerification.role === 'admin' && result === 'admin') {
+          req.userData = tokenVerification;
+          const userId = tokenVerification.id;
+          req.userId = userId;
+        }
+        else {
+          res.status(401).send({
+            err: 'Authentication failed',
+          });
+        }
+        next();
+      });
+    } catch (err) {
+      res.status(401).send({
+        err: 'Unauthorized user',
+      });
+    }
+  };
+
+  /**
+  *
+  * @param {*} req
+  * @param {*} res
+  * @param {*} next
+  * @description : verifyToken will validate the token generated
+  */
+  verifyToken = (req, res, next) => {
+    try {
+      const decode = jwt.verify(req.headers.token, process.env.JWT);
+      client.get('token', (err, token) => {
+        if (err) throw err;
+        if (req.headers.token === token) {
+          req.userData = decode;
+          const userId = decode.id;
+          req.userId = userId;
+        }
+        next();
+      });
+    } catch (error) {
+      res.status(401).send({
+        error: 'Your token has expiered',
+      });
+    }
   };
 
   mail = (data) => {
