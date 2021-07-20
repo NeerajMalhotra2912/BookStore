@@ -55,7 +55,6 @@ class UserData {
 
     forgetPassword = (data, callback) => {
         userRegistrationModel.forgetPassword(data, (error, result) => {
-            console.log("result from services ", result);
             if (result) {
                 const details = {
                     email: result.email,
