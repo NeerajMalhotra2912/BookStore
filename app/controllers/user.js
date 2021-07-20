@@ -132,7 +132,6 @@ class UserRegistration {
     resetPassword = (req, res) => {
         try {
             const verifyRole = jwt.verify(req.headers.token, process.env.JWT);
-            console.log("Role ", verifyRole);
             const resetPass = {
                 password: req.body.password,
                 email: verifyRole.name,
