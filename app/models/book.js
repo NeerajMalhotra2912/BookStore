@@ -13,6 +13,9 @@
  **************************************************************************/
 const mongoose = require('mongoose');
 
+/**
+ * @description : creating bookschema for books crud operations
+ */
 const bookSchema = mongoose.Schema({
     author: {
         type: String,
@@ -48,6 +51,11 @@ const bookSchema = mongoose.Schema({
 const bookModel = mongoose.model('Book', bookSchema);
 
 class BookModel {
+    /**
+     * 
+     * @param {*} data 
+     * @description : addBook will take data from services to save details in db. 
+     */
     addBook = (data) => {
         const note = new bookModel({
             author: data.author,
@@ -63,7 +71,11 @@ class BookModel {
                 .catch((err) => reject(err));
         });
     }
-
+    /**
+     * 
+     * @param {*} data 
+     * @description : updatedBook will take data from services and updated it in db. 
+     */
     updateBook = (data) => {
         return new Promise((resolve, reject) => {
             bookModel.findByIdAndUpdate(data.bookId, {
@@ -78,13 +90,28 @@ class BookModel {
                 .catch((err) => reject(err));
         });
     }
-
+    /**
+     * 
+     * @description : getallBooks is used to retrieve all books data from Db. 
+     */
     getAllBooks = () => {
         return new Promise((resolve, reject) => {
             bookModel.find()
                 .then((book) => resolve(book))
                 .catch((err) => reject(err));
         });
+    }
+    /**
+     * 
+     * @param {*} data 
+     * @description : deleteBook will delete the book using its id from Db. 
+     */
+    deleteBook = (data) => {
+        return new Promise((resolve, reject) => {
+            bookModel.findByIdAndRemove(data)
+                .then((book) => resolve(book))
+                .catch((err) => reject(err));
+        })
     }
 }
 
