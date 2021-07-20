@@ -13,6 +13,7 @@
 const userControlller = require('../controllers/user');
 const booksController = require('../controllers/book');
 const helper = require('../../helper/validationSchema');
+const redis = require('../../helper/redis');
 /**
  *
  * @param {*} app
@@ -29,7 +30,11 @@ module.exports = (app) => {
 
     app.post('/forgetPassword', userControlller.forgetPassword);
 
-    app.post('/resetPassword', userControlller.resetPassword);
+    app.post('/resetPassword', helper.verifyToken, userControlller.resetPassword);
 
     app.post('/book', booksController.addBook);
+
+    app.put('/book/:bookId', booksController.updateBook);
+
+    app.get('/book', redis.redisMiddleWare, booksController.getAllBooks);
 };
