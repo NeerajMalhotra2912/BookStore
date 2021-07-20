@@ -49,6 +49,14 @@ class BookService {
             ).catch((err) => reject(err));
         });
     }
+
+    deleteBook = (data) => {
+        return new Promise((resolve, reject) => {
+            const result = bookModels.deleteBook(data);
+            result.then((book) => resolve(book)
+            ).catch((err) => reject(err));
+        });
+    }
 }
 
 module.exports = new BookService();
