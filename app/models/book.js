@@ -63,6 +63,29 @@ class BookModel {
                 .catch((err) => reject(err));
         });
     }
+
+    updateBook = (data) => {
+        return new Promise((resolve, reject) => {
+            bookModel.findByIdAndUpdate(data.bookId, {
+                author: data.author,
+                title: data.title,
+                image: data.image,
+                quantity: data.quantity,
+                price: data.price,
+                description: data.description,
+            })
+                .then((book) => resolve(book))
+                .catch((err) => reject(err));
+        });
+    }
+
+    getAllBooks = () => {
+        return new Promise((resolve, reject) => {
+            bookModel.find()
+                .then((book) => resolve(book))
+                .catch((err) => reject(err));
+        });
+    }
 }
 
 module.exports = new BookModel();
