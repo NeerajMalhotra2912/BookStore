@@ -13,6 +13,7 @@
  **************************************************************************/
 
 const bookModels = require('../models/book');
+const redis = require('../../helper/redis');
 
 class BookService {
     /**
@@ -24,6 +25,26 @@ class BookService {
             const result = bookModels.addBook(data);
             result.then((book) => {
                 resolve(book);
+            }
+            ).catch((err) => reject(err));
+        });
+    }
+
+    updateBook = (data) => {
+        return new Promise((resolve, reject) => {
+            const result = bookModels.updateBook(data);
+            result.then((book) => resolve(book)
+            ).catch((err) => reject(err));
+        });
+    }
+
+    getAllBooks = () => {
+        const KEY = 'book';
+        return new Promise((resolve, reject) => {
+            const result = bookModels.getAllBooks();
+            result.then((booksData) => {
+                redis.redisFunction(KEY, booksData);
+                resolve(booksData)
             }
             ).catch((err) => reject(err));
         });
