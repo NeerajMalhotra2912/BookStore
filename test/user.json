@@ -1,20 +1,58 @@
 {
     "user":
     {
-        "correct_Data_For_Registration":
+        "userRegistration":
         {
-            "firstName" : "Neeraj",
-            "lastName"  : "Malhotra",
-            "email"     : "neeraj@gmail.com",
-            "password"  : "Naman@12345"
+            "firstName": "Vanshika",
+            "lastName": "Malhotra",
+            "email": "vanshika@gmail.com",
+            "password": "Radhey@12345",
+            "role": "user"
         },
-
-        "in_correct_Data_For_Registration":
+        "in_correct_Registration":
         {
             "firstName": "neeraj",
             "lastName": "malhotra",
             "email": "neeraj@gmail.com",
-            "password": "Neeraj@1234"
+            "password": "Neeraj@1234",
+            "role"      : "admin"
+        },
+        "adminRegistration":
+        {
+            "firstName": "Mohak",
+            "lastName": "Malhotra",
+            "email": "mohakmalhotra@gmail.com",
+            "password" : "Mohak@4321"
+        },
+        "adminLogin": {
+            "email": "rajeevmalhotra@gmail.com",
+            "password": "Harryboy@4321"
+        },
+        "adminLoginWithImproperDetails": {
+            "email": "rajvlhoa@gmail.com",
+            "password": "Harryb21"
+        },
+        "userLogin": {
+            "email": "neerajmalhotra@gmail.com",
+            "password": "Malhotra@1234"
+        },
+        "userLoginWithImproperDetails": {
+            "email": "neerajmalhotail.com",
+            "password": "Malho34"
+        },
+        "forgetPasswordData": {
+            "email": "rajeevmalhotra@gmail.com"
+        },
+        "forgetPasswordWithImproperDetails": {
+            "email": "rajeevmalhotmail.com"
+        },
+        "resetPassword": {
+            "password": "Rajeev@12345"
+        },
+        "credentials": {
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJhamVldm1hbGhvdHJhQGdtYWlsLmNvbSIsImlkIjoiNjBlZjFlMTBhZjFjZDcwNzEwNzhiOGM0Iiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjI2OTI3NDgyLCJleHAiOjE2MjcwMTM4ODJ9.QHNY5uYeoy27urexaHuj8JpxHW_9AEDcAadjap_u5bY",
+            "wrongToken": "eyJhbGciOiJI6IkpXVCJ9.eyJlbWFpbCImlkIjoiNjBlZjFlMTBhZjFjZDcwNzEwNzhiOGM0Iiwicm9sZSI6ImFkbWluIiwiaWY4ODY1MTd9.g35jbUSbY72XCWd8giBbZDlPzVCm5v4"
         }
     }
+    
 }
