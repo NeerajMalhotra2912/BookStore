@@ -47,8 +47,8 @@ class Helper {
    * @description : bookValidationSchema to validate the books details.
    */
   bookValidationSchema = joi.object({
-    author: joi.string().required(),
-    title: joi.string().required(),
+    author: joi.string().min(3).required().pattern(new RegExp('^[A-Za-z ]{3,}$')),
+    title: joi.string().min(3).required(),
     image: joi.string().required(),
     quantity: joi.number().required(),
     price: joi.number().required(),
@@ -59,8 +59,8 @@ class Helper {
    * @description : updatedBookSchema to update the already added book.
    */
   updatedBookSchema = joi.object({
-    author: joi.string().required(),
-    title: joi.string().required(),
+    author: joi.string().min(3).required().pattern(new RegExp('^[A-Za-z ]{3,}$')),
+    title: joi.string().min(3).required(),
     image: joi.string().required(),
     quantity: joi.number().required(),
     price: joi.number().required(),
@@ -118,27 +118,20 @@ class Helper {
   verifyRole = (req, res, next) => {
     try {
       const decode = jwt.verify(req.headers.token, process.env.JWT);
-      client.get('role', (err, result) => {
-        if (err) throw err;
-        if (decode.role === 'admin' && result === 'admin') {
-          req.userData = decode;
-          const userId = decode.id;
-          req.userId = userId;
-        }
-        else {
-          res.status(401).send({
-            err: 'Authentication failed',
-          });
-        }
-        next();
-      });
-    } catch (err) {
+      if (decode.role !== 'admin') {
+        res.status(501).send({
+          success: false,
+          message: 'Authorization Failed'
+        });
+      }
+      req.userData = decode;
+      next();
+    } catch (error) {
       res.status(401).send({
-        err: 'Unauthorized user',
+        error: 'Unauthorized Access, please check again',
       });
     }
   };
-
   /**
   *
   * @param {*} req
