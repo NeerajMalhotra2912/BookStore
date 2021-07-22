@@ -1,0 +1,35 @@
+{
+    "books": {
+        "addBookWithCorrectDetails": {
+            "author": "Dan Brown",
+            "title": "Angels & Demons - Movie Tie-In",
+            "image": "http://books.google.com/books/content?id=GXznEnKwTdAC&printsec=frontcover&img=1&zoom=5",
+            "quantity": 15,
+            "price": 462,
+            "description": "The murder of a world-famous physicist raises fear that the Illuminati are operating again after centuries of silenceand religion professor Robert Langdon is called in to assist with the case. By the author of Digital Fortress. Reprint"
+        },
+        "addBookWithInCorrectDetails": {
+            "author": "Dan Brown",
+            "title": "Angels & Demons - Movie Tie-In",
+            "quantity": 15,
+            "price": 462
+        },
+        "updateBookWithCorrectDetails": {
+            "author": "Dan Brown",
+            "title": "Updated Angels & Demons - Movie Tie-In",
+            "image": "http://books.google.com/books/content?id=GXznEnKwTdAC&printsec=frontcover&img=1&zoom=5",
+            "quantity": 15,
+            "price": 462,
+            "description": "The murder of a world-famous physicist raises fear that the Illuminati are operating again after centuries of silenceand religion professor Robert Langdon is called in to assist with the case. By the author of Digital Fortress. Reprint"
+        },
+        "updateBookWithInCorrectDetails": {
+            "author": "Dan Brown",
+            "title": "Angels & Demons - Movie Tie-In",
+            "quantity": 15,
+            "price": 462
+        },
+        "credential": {
+            "wrongToken": "eyJhbGciOiJIUzI1N9.eymlkIjoiNjBlZjFlMTBhZjFjZDcwNzEiOGM0Iiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjI2OTI3NDgyLCJleHAiOjE2MjcwMTM4ODJ9.QHNY5uYeoy27urexaHdjap_u5bY"
+        }
+    }
+}
