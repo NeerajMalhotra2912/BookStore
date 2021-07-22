@@ -8,7 +8,7 @@
     "host": "localhost:3000",
     "tags": [
         {
-            "name": "BookStore",
+            "name": "Book Store",
             "description": "API for user registration"
         }
     ],
@@ -22,17 +22,17 @@
         "application/json"
     ],
     "paths": {
-        "/user": {
+        "/admin": {
             "post": {
                 "tags": [
                     "BookStore"
                 ],
-                "summary": "User registartion",
+                "summary": "admin Registration",
                 "parameters": [
                     {
                         "in": "body",
                         "name": "body",
-                        "description": "This is the book store api"
+                        "description": "Admin Registration"
                     }
                 ],
                 "produces": [
@@ -40,14 +40,143 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Successful"
+                        "description": "Success"
                     },
                     "400": {
-                        "description": "Failure : user registartion is failed"
+                        "description": "Failed to register"
+                    }
+                }
+            }
+        },
+        "/user": {
+            "post": {
+                "tags": [
+                    "BookStore"
+                ],
+                "summary": "user Registration",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "User Registration"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "400": {
+                        "description": "Failed to register"
+                    }
+                }
+            }
+        },
+        "/userLogin": {
+            "post": {
+                "tags": [
+                    "BookStore"
+                ],
+                "summary": "user Login",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "login"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "logged in successfully"
+                    },
+                    "400": {
+                        "description": "login failed"
+                    }
+                }
+            }
+        },
+        "/adminLogin": {
+            "post": {
+                "tags": [
+                    "BookStore"
+                ],
+                "summary": "admin Login",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "login"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "logged in successfully"
+                    },
+                    "400": {
+                        "description": "login failed"
+                    }
+                }
+            }
+        },
+        "/forgetPassword": {
+            "post": {
+                "tags": [
+                    "BookStore"
+                ],
+                "summary": "Forgot Password",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "forgot password"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Password reset mail sent successfully"
+                    },
+                    "400": {
+                        "description": "Failed to send mail"
+                    }
+                }
+            }
+        },
+        "/resetPassword": {
+            "post": {
+                "tags": [
+                    "BookStore"
+                ],
+                "summary": "Reset Password",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "reset password"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Password reset successfully"
+                    },
+                    "400": {
+                        "description": "Failed to reset password"
                     }
                 }
             }
         }
-            
     }
 }
