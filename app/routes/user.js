@@ -32,11 +32,11 @@ module.exports = (app) => {
 
     app.post('/resetPassword', helper.verifyToken, userControlller.resetPassword);
 
-    app.post('/book', booksController.addBook);
+    app.post('/book', helper.verifyRole, booksController.addBook);
 
-    app.put('/book/:bookId', booksController.updateBook);
+    app.put('/book/:bookId', helper.verifyRole, booksController.updateBook);
 
-    app.get('/book', redis.redisMiddleWare, booksController.getAllBooks);
+    app.get('/book', helper.verifyToken, redis.redisMiddleWare, booksController.getAllBooks);
 
-    app.delete('/book/:bookId', booksController.deleteBook);
+    app.delete('/book/:bookId', helper.verifyRole, booksController.deleteBook);
 };
