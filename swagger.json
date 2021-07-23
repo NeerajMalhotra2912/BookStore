@@ -177,6 +177,134 @@
                     }
                 }
             }
+        },
+        "/book": {
+            "post": {
+                "tags": [
+                    "BookStore"
+                ],
+                "summary": "Add book",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "add book"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Your Book added successfully"
+                    },
+                    "400": {
+                        "description": "Failed to add book"
+                    }
+                },
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ]
+            },
+            "get": {
+                "tags": [
+                    "BookStore"
+                ],
+                "summary": "Get all books",
+                "parameters": [
+                    
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "All books retrieved successfully"
+                    },
+                    "400": {
+                        "description": "Failed to retrieve books"
+                    }
+                },
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ]
+            }
+        },
+        "/book/{id}":{
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "Enter the Book Id for update",
+                    "type":"string"
+                }
+            ],
+            "put": {
+                "tags": [
+                    "BookStore"
+                ],
+                "summary": "Update book",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Update an existing book"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Updated book successfully"
+                    },
+                    "400": {
+                        "description": "Failed to update book"
+                    }
+                },
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "BookStore"
+                ],
+                "summary": "Delete book",
+                "parameters": [
+                    
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Deleted book successfully"
+                    },
+                    "400": {
+                        "description": "Failed to delete book"
+                    }
+                },
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ]
+            }
+        }
+    },
+    "securityDefinitions": {
+        "JWT": {
+            "type": "apiKey",
+            "name": "token",
+            "in": "header"
         }
     }
 }
