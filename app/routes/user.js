@@ -12,6 +12,7 @@
  **************************************************************************/
 const userControlller = require('../controllers/user');
 const booksController = require('../controllers/book');
+const cartController = require('../controllers/cart');
 const helper = require('../../helper/validationSchema');
 const redis = require('../../helper/redis');
 /**
@@ -39,4 +40,6 @@ module.exports = (app) => {
     app.get('/book', helper.verifyToken, redis.redisMiddleWare, booksController.getAllBooks);
 
     app.delete('/book/:bookId', helper.verifyRole, booksController.deleteBook);
+
+    app.post('/addToCart', helper.verifyToken, cartController.addToCart);
 };
