@@ -298,6 +298,37 @@
                     }
                 ]
             }
+        },
+        "/addToCart": {
+            "post": {
+                "tags": [
+                    "BookStore"
+                ],
+                "summary": "Addd To Cart",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "add book to cart"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Your Book added to the cart successfully"
+                    },
+                    "400": {
+                        "description": "Failed to add book in the cart"
+                    }
+                },
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ]
+            }
         }
     },
     "securityDefinitions": {
