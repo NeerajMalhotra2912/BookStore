@@ -127,7 +127,7 @@ describe('reset Password', () => {
       });
   });
 
-  it('givenToken_whenProper_shouldResetPassword', (done) => {
+  it.skip('givenToken_whenProper_shouldResetPassword', (done) => {
     chai.request(server).post('/resetPassword')
       .set('token', `${userData.user.credentials.token}`)
       .send(userData.user.resetPassword)
