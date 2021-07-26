@@ -55,6 +55,19 @@ class CartModels {
             callback(null, result);
         }
     }
+
+    /**
+     * 
+     * @param {*} data 
+     * @description : removeFromCart will remove the book from cart and update the Db.
+     */
+    removeFromCart = (data) => {
+        return new Promise((resolve, reject) => {
+            cartModel.findOneAndUpdate({ userId: data.userId }, { $pull: { bookId: data.bookId } })
+                .then((book) => resolve(book))
+                .catch((err) => reject(err));
+        });
+    }
 }
 
 module.exports = new CartModels();
