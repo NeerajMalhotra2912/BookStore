@@ -1,0 +1,10 @@
+{
+    "books":{
+        "addToCartWithCorrectDetails": {
+            "bookId": "60cc757826afe60f70277846"
+        },
+        "addToCartWithInCorrectDetails": {
+            "bookId": "60cc757826afe60f702778"
+        }
+    }
+}
