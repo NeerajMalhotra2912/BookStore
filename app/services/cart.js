@@ -22,6 +22,19 @@ class CartService {
     addToCart = (data, callback) => {
         cartModel.addToCart(data, callback);
     }
+
+    /**
+     * 
+     * @param {*} data 
+     * @description : removeFromCart will take the data from controller and pass it to models
+     */
+    removeFromCart = (data) => {
+        return new Promise((resolve, reject) => {
+            const result = cartModel.removeFromCart(data);
+            result.then((book) => resolve({ book }))
+                .catch((err) => reject({ err }));
+        });
+    }
 }
 
 module.exports = new CartService();
