@@ -126,34 +126,33 @@ describe('Books CRUD Api', () => {
                         done();
                     });
             });
+        });
+        describe('retrieve books', () => {
+            it('givenBookDetails_whenProper_shouldGetAllBook', (done) => {
+                chai.request(server).get('/book')
+                    .set('token', token).send()
+                    .end((err, res) => {
+                        res.should.have.status(200);
+                        done();
+                    });
+            });
 
-            describe('retrieve books', () => {
-                it('givenBookDetails_whenProper_shouldGetAllBook', (done) => {
-                    chai.request(server).get('/book')
-                        .set('token', token).send()
-                        .end((err, res) => {
-                            res.should.have.status(200);
-                            done();
-                        });
-                });
+            it('givenBookDetails_whenMissingToken_shouldNotGetAllBook', (done) => {
+                chai.request(server).get('/book')
+                    .send().end((err, res) => {
+                        res.should.have.status(401);
+                        done();
+                    });
+            });
 
-                it('givenBookDetails_whenMissingToken_shouldNotGetAllBook', (done) => {
-                    chai.request(server).get('/book')
-                        .send().end((err, res) => {
-                            res.should.have.status(401);
-                            done();
-                        });
-                });
-
-                it('getBooks_whenWrongToken_shouldNotSaveInDB', (done) => {
-                    chai.request(server).get('/book')
-                        .set('token', bookData.books.credential.wrongToken)
-                        .send()
-                        .end((err, res) => {
-                            res.should.have.status(401);
-                            done();
-                        });
-                });
+            it('getBooks_whenWrongToken_shouldNotSaveInDB', (done) => {
+                chai.request(server).get('/book')
+                    .set('token', bookData.books.credential.wrongToken)
+                    .send()
+                    .end((err, res) => {
+                        res.should.have.status(401);
+                        done();
+                    });
             });
         });
     });
