@@ -42,4 +42,6 @@ module.exports = (app) => {
     app.delete('/book/:bookId', helper.verifyRole, booksController.deleteBook);
 
     app.post('/addToCart', helper.verifyToken, cartController.addToCart);
+
+    app.delete('/removeFromCart', helper.verifyToken, cartController.removeFromCart);
 };
