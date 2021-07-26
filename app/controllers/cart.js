@@ -46,6 +46,37 @@ class CartController {
             });
         }
     }
+    /**
+     * 
+     * @param {*} req 
+     * @param {*} res 
+     * @description : removeFromCart will remove the book from cart.
+     */
+    removeFromCart = (req, res) => {
+        try {
+            const data = {
+                bookId: req.body.bookId,
+                userId: req.userId
+            };
+            cartServices.removeFromCart(data).then(() => {
+                res.status(200).send({
+                    success: true,
+                    message: 'Selected Book has been removed from your cart successfully',
+                });
+            }).catch((err) => {
+                res.status(400).send({
+                    success: false,
+                    message: 'Failed to remove the book selected from the cart',
+                    err,
+                });
+            });
+        } catch (err) {
+            res.status(500).send({
+                success: false,
+                message: 'Internal error from the server',
+            });
+        }
+    }
 }
 
 module.exports = new CartController();
